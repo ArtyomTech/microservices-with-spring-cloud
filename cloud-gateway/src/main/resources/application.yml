@@ -10,6 +10,12 @@ spring:
 
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+
       routes:
         - id: DEPARTMENT-SERVICE
           uri: lb://DEPARTMENT-SERVICE

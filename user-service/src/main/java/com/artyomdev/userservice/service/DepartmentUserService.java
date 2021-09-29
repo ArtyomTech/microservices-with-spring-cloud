@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -35,6 +37,12 @@ public class DepartmentUserService {
     public DepartmentUser saveDepartmentUserExample() {
         DepartmentUser departmentUser = new DepartmentUser("Artyom", "Aralov", 1);
         return departmentUserRepository.save(departmentUser);
+    }
+
+    public List<ResponseDepartmentUserDto> getUsersWithDepartment() {
+        List<DepartmentUser> users = departmentUserRepository.findAll();
+
+        return users.stream().map(user -> getUserWithDepartment(user.getUserId())).collect(Collectors.toList());
     }
 
 }

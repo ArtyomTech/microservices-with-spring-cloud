@@ -6,6 +6,8 @@ import com.artyomdev.userservice.service.DepartmentUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/users")
@@ -16,6 +18,11 @@ public class DepartmentUserController {
     @GetMapping("/{id}")
     public ResponseDepartmentUserDto getUserWithDepartment(@PathVariable("id") long userId) {
         return departmentUserService.getUserWithDepartment(userId);
+    }
+
+    @GetMapping
+    public List<ResponseDepartmentUserDto> getUsers() {
+        return departmentUserService.getUsersWithDepartment();
     }
 
     @PostMapping("/example")
