@@ -14,9 +14,8 @@ export const selectedUser = (user) => {
     }
 }
 
-export const removeSelectedUser = (user) => {
+export const removeSelectedUser = () => {
     return {
-        type: ActionTypes.REMOVE_SELECTED_USER,
-        payload: user
+        type: ActionTypes.REMOVE_SELECTED_USER
     }
 }
