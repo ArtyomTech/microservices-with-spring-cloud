@@ -1,15 +1,23 @@
+// React
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 // Components
-import Department from './components/Department';
 import Navbar from './components/Navbar';
+import UsersList from './components/UsersList';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Navbar />
-      </header>
+      <Router>
+        <header className="App-header">
+          <Navbar />
+        </header>
 
-      <Department />
+        <Switch>
+          <Route path="/" exact component={UsersList} />
+          <Route>404 Not Found!</Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
