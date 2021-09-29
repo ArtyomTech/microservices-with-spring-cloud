@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 // API
 import api from '../api/users';
 
-const Department = () => {
+function Department() {
     const [users, setUsers] = useState([]);
 
     const getUsersResponse = async () => {
