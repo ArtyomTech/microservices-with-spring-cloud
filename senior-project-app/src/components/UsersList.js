@@ -40,10 +40,6 @@ function UsersList() {
                 <Users />
             </tbody>
         </table>
-
-        /*<ul className="list-group">
-            <Users />
-        </ul>*/
     )
 }
 
