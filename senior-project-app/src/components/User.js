@@ -14,7 +14,7 @@ function User() {
     const { userId } = useParams();
     const dispatch = useDispatch();
 
-    const fetchUserDetail = async () => {
+    const fetchUser = async () => {
         const response = await api
             .get(`users/${userId}`)
             .catch(err => {
@@ -27,11 +27,11 @@ function User() {
     };
 
     useEffect(() => {
-        if (userId) fetchUserDetail();
+        if (userId) fetchUser();
         return () => {
             dispatch(removeSelectedUser());
         }
-    }, [userId]);
+    }, [userId, dispatch]);
 
     const { departmentUser } = user;
     return (
