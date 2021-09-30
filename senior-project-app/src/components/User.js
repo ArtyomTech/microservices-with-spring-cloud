@@ -4,32 +4,18 @@ import { useParams } from 'react-router';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { selectedUser, removeSelectedUser } from '../redux/actions/userActions';
 
 // API
-import api from '../api/users';
+import { fetchUser } from '../api/RestUsers';
 
 function User() {
     const user = useSelector((state) => state.user);
     const { userId } = useParams();
     const dispatch = useDispatch();
 
-    const fetchUser = async () => {
-        const response = await api
-            .get(`users/${userId}`)
-            .catch(err => {
-                console.log('Err ', err);
-            });
-
-        if (response) {
-            dispatch(selectedUser(response.data));
-        }
-    };
-
     useEffect(() => {
-        if (userId) fetchUser();
-        return () => {
-            dispatch(removeSelectedUser());
+        if (userId) {
+            fetchUser(dispatch, userId);
         }
     }, [userId, dispatch]);
 

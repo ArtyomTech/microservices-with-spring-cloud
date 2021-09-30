@@ -1,32 +1,20 @@
 // React
 import React, { useEffect } from 'react';
 
+// Redux
+import { useDispatch } from 'react-redux';
+
 // Components
 import Users from './Users';
 
 // API
-import api from '../api/users';
-
-// Redux
-import { useDispatch } from 'react-redux';
-import { setUsers } from '../redux/actions/userActions'
+import { fetchUsers } from '../api/RestUsers';
 
 function UsersList() {
     const dispatch = useDispatch();
-    const fetchUsers = async () => {
-        const response = await api
-            .get("/users")
-            .catch((err) => {
-                console.log('Error', err);
-            })
-
-        if (response) {
-            dispatch(setUsers(response.data));
-        }
-    };
 
     useEffect(() => {
-        fetchUsers();
+        fetchUsers(dispatch);
     });
 
     return (
