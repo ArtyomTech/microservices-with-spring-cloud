@@ -5,11 +5,14 @@ import { useParams } from 'react-router';
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
 
+// Bootstrap
+import { Table } from 'react-bootstrap';
+
 // API
 import { fetchUser } from '../api/RestUsers';
 
 function User() {
-    const user = useSelector((state) => state.user);
+    const departmentUser = useSelector((state) => state.user);
     const { userId } = useParams();
     const dispatch = useDispatch();
 
@@ -19,13 +22,13 @@ function User() {
         }
     }, [userId, dispatch]);
 
-    const { departmentUser } = user;
+    const { user } = departmentUser;
     return (
         <>
-            {!departmentUser ? (
+            {!user ? (
                 <div>...Loading</div>
             ) : (
-                <table className="table">
+                <Table bordered hover>
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -33,10 +36,10 @@ function User() {
                     </thead>
                     <tbody>
                         <tr key={userId}>
-                            <td>{departmentUser.firstName + ' ' + departmentUser.lastName}</td>
+                            <td>{user.firstName + ' ' + user.lastName}</td>
                         </tr>
                     </tbody>
-                </table>
+                </Table>
             )}
         </>
     )

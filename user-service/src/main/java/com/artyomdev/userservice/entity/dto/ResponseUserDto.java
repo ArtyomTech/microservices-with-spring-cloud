@@ -1,6 +1,6 @@
 package com.artyomdev.userservice.entity.dto;
 
-import com.artyomdev.userservice.entity.DepartmentUser;
+import com.artyomdev.userservice.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseDepartmentUserDto {
+public class ResponseUserDto {
 
-    private DepartmentUser departmentUser;
+    private User user;
     private DepartmentDto department;
 
 }

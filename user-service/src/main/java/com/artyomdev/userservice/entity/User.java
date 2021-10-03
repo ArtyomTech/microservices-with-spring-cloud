@@ -12,9 +12,9 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DepartmentUser {
+public class User {
 
-    public DepartmentUser(String firstName, String lastName, long departmentId) {
+    public User(String firstName, String lastName, long departmentId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.departmentId = departmentId;
@@ -30,6 +30,10 @@ public class DepartmentUser {
 
     @Column(name = "last_name")
     private String lastName;
+
+    private String name;
+    private String email;
+    private String password;
 
     @Column(name = "department_id")
     private long departmentId;

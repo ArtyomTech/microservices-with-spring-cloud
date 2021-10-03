@@ -1,4 +1,4 @@
-import { ActionTypes } from "../constants/actionTypes";
+import { UserTypes } from "./userTypes";
 
 const initialState = {
     users: []
@@ -6,7 +6,7 @@ const initialState = {
 
 export const usersReducer = (state = initialState, { type, payload }) => {
     switch (type) {
-        case ActionTypes.SET_USERS:
+        case UserTypes.SET_USERS:
             return { ...state, users: payload };
         default:
             return state;
@@ -15,9 +15,9 @@ export const usersReducer = (state = initialState, { type, payload }) => {
 
 export const userReducer = (state = {}, { type, payload }) => {
     switch (type) {
-        case ActionTypes.SELECTED_USER:
+        case UserTypes.SELECTED_USER:
             return { ...state, ...payload };
-        case ActionTypes.REMOVE_SELECTED_USER:
+        case UserTypes.REMOVE_SELECTED_USER:
             return {};
         default:
             return state;

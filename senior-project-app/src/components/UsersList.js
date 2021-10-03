@@ -4,6 +4,9 @@ import React, { useEffect } from 'react';
 // Redux
 import { useDispatch } from 'react-redux';
 
+// Bootstrap
+import { Table } from 'react-bootstrap';
+
 // Components
 import Users from './Users';
 
@@ -18,7 +21,7 @@ function UsersList() {
     });
 
     return (
-        <table className="table">
+        <Table bordered hover>
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -27,7 +30,7 @@ function UsersList() {
             <tbody>
                 <Users />
             </tbody>
-        </table>
+        </Table>
     )
 }
 

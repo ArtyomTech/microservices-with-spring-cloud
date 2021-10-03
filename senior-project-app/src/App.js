@@ -1,24 +1,35 @@
 // React
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+// Bootstrap
+import { Container, Row, Col } from "react-bootstrap";
+
 // Components
-import Navbar from './components/Navbar';
+import NavigationBar from './components/NavigationBar';
 import UsersList from './components/UsersList';
 import User from './components/User';
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <header className="App-header">
-          <Navbar />
-        </header>
+        <NavigationBar />
 
-        <Switch>
-          <Route path="/" exact component={UsersList} />
-          <Route path="/users/:userId" exact component={User} />
-          <Route>404 Not Found!</Route>
-        </Switch>
+        <Container>
+          <Row>
+            <Col lg={12} className="mt-lg-5">
+              <Switch>
+                <Route path="/users" exact component={UsersList} />
+                <Route path="/register" exact component={Register} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/users/:userId" exact component={User} />
+                <Route>404 Not Found!</Route>
+              </Switch>
+            </Col>
+          </Row>
+        </Container>
       </Router>
     </div>
   );

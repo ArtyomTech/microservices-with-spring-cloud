@@ -1,8 +1,8 @@
 package com.artyomdev.userservice.repository;
 
-import com.artyomdev.userservice.entity.DepartmentUser;
+import com.artyomdev.userservice.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DepartmentUserRepository extends JpaRepository<DepartmentUser, Long> { }
+public interface UserRepository extends JpaRepository<User, Long> { }

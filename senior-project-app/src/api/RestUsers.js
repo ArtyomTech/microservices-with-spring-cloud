@@ -1,5 +1,5 @@
 // Redux
-import { setUsers, selectedUser } from '../redux/actions/userActions';
+import { setUsers, selectedUser } from '../redux/user/userActions';
 
 // API
 import api from './RestUtils';
