@@ -41,8 +41,8 @@ const Login = (props) => {
         console.log('user', user);
         dispatch(authenticateUser(user.email, user.password))
             .then((response) => {
-                console.log(response.data);
-                return props.history.push("/users");
+                console.log('res', response);
+                return props.history.push("/home");
             })
             .catch((error) => {
                 console.log(error.message);

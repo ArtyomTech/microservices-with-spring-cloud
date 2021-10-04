@@ -38,6 +38,10 @@ dependencies {
 	// JSON Web Token
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
+	// Jettison
+	implementation group: 'org.codehaus.jettison', name: 'jettison', version: '1.4.1'
+
+
 	// Spring Cloud
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'

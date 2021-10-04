@@ -6,7 +6,7 @@ import api from './RestUtils';
 
 export async function fetchUsers(dispatch) {
     const response = await api
-        .get(`api/users`)
+        .get(`api/users/lala`)
         .catch(err => {
             console.log('Err ', err);
         });

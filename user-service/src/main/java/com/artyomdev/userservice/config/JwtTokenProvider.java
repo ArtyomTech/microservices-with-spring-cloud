@@ -3,8 +3,10 @@ package com.artyomdev.userservice.config;
 import com.artyomdev.userservice.entity.Role;
 import com.artyomdev.userservice.service.CustomUserDetailsService;
 import io.jsonwebtoken.*;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,20 +19,11 @@ import java.util.Date;
 import java.util.Set;
 
 @Component
+@AllArgsConstructor
 public class JwtTokenProvider {
 
-	@Value("${security.jwt.token.secret-key:secret}")
-    private String secretKey = "secret";
-	
-    @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 3600000; // 1h
-    
-    private final CustomUserDetailsService userDetailsService;
-
-    @Autowired
-    public JwtTokenProvider(CustomUserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+    private String secretKey = "kgkhlmhlfmghlgfmh6645bfdb";
+    private CustomUserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init() {
@@ -41,39 +34,24 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", set);
         Date now = new Date();
+        long validityInMilliseconds = 50 * 60 * 60; // 2 minutes
         Date validity = new Date(now.getTime() + validityInMilliseconds);
-        return Jwts.builder()//
-            .setClaims(claims)//
-            .setIssuedAt(now)//
-            .setExpiration(validity)//
-            .signWith(SignatureAlgorithm.HS256, secretKey)//
+        return Jwts.builder()
+            .setClaims(claims)
+            .setIssuedAt(now)
+            .setExpiration(validity)
+            .signWith(SignatureAlgorithm.HS256, secretKey)
             .compact();
     }
-    
-    Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+
+    public Authentication getAuthentication(String username) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(),
+                userDetails.getAuthorities());
     }
-    
-    private String getUsername(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    }
-    
-    String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7, bearerToken.length());
-        }
-        return null;
-    }
-    
-    boolean validateToken(String token) {
-        try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            return !claims.getBody().getExpiration().before(new Date());
-        } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtException("Expired or invalid JWT token");
-        }
+
+    public Claims getClaimsFromToken(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
 }

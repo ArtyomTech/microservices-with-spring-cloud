@@ -12,10 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -33,17 +30,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 	    user.setEnabled(true);
 	    user.setEmail(user.getEmail());
 	    user.setName(user.getName());
-
-		System.out.println("HERE SAVE USER");
-
 	    userRepository.save(user);
 	}
 	
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
 	    User user = userRepository.findByEmail(email);
-	    if(user != null) {
+	    if(Objects.nonNull(user)) {
 	        List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
 	        return buildUserForAuthentication(user, authorities);
 	    } else {

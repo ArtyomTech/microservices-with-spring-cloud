@@ -8,10 +8,12 @@ import com.artyomdev.userservice.repository.UserRepository;
 import com.artyomdev.userservice.service.CustomUserDetailsService;
 import com.artyomdev.userservice.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,19 +36,24 @@ public class UserController {
     private final CustomUserDetailsService customUserDetailsService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserDto data) {
+    public ResponseEntity<Map<Object, Object>> login(@RequestBody UserDto data) {
         try {
             String username = data.getEmail();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            String token = jwtTokenProvider.createToken(username, userRepository.findByEmail(username).getRoles());
-            Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
-            model.put("token", token);
+            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+            System.out.println("AUTH LALALALL: " + auth.isAuthenticated());
+            if (auth.isAuthenticated()) {
+                String token = jwtTokenProvider.createToken(username, userRepository.findByEmail(username).getRoles());
+                Map<Object, Object> model = new HashMap<>();
+                model.put("username", username);
+                model.put("token", token);
 
-            return ok(model);
+                return new ResponseEntity<>(model, HttpStatus.OK);
+            }
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid email/password supplied");
         }
+
+        return null;
     }
 
     @PostMapping("/register")
@@ -68,8 +75,9 @@ public class UserController {
         return userService.getUserWithDepartment(userId);
     }
 
-    @GetMapping
+    @GetMapping("/lala")
     public List<ResponseUserDto> getUsers() {
+        System.out.println("HERE I AM");
         return userService.getUsersWithDepartment();
     }
 
