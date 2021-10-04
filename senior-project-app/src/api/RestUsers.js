@@ -6,16 +6,17 @@ import api from './RestUtils';
 
 export async function fetchUsers(dispatch) {
     const response = await api
-        .get(`users`)
+        .get(`api/users`)
         .catch(err => {
             console.log('Err ', err);
         });
+    console.log('res', response);
     dispatch(setUsers(response.data));
 }
 
 export async function fetchUser(dispatch, userId) {
     const response = await api
-        .get(`users/${userId}`)
+        .get(`api/users/${userId}`)
         .catch(err => {
             console.log('Err ', err);
         });

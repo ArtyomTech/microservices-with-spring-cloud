@@ -3,11 +3,10 @@ import * as UT from "../user/userTypes";
 
 import axios from "axios";
 
-const AUTH_URL = "http://localhost:9191/users/authenticate";
-const REGISTER_URL = "http://localhost:9191/users/register";
+const AUTH_URL = "http://localhost:9191/api/users/login";
+const REGISTER_URL = "http://localhost:9191/api/users/register";
 
 export const authenticateUser = (email, password) => async (dispatch) => {
-    console.log('email, password', email, password);
     dispatch(loginRequest());
     try {
         const response = await axios.post(AUTH_URL, {
@@ -33,13 +32,13 @@ export const logoutUser = () => {
 
 const loginRequest = () => {
     return {
-        type: AT.LOGIN_REQUEST,
+        type: AT.LOGIN_REQUEST
     };
 };
 
 const logoutRequest = () => {
     return {
-        type: AT.LOGOUT_REQUEST,
+        type: AT.LOGOUT_REQUEST
     };
 };
 
@@ -61,6 +60,7 @@ export const registerUser = (userObject) => async (dispatch) => {
     dispatch(userRequest());
     try {
         const response = await axios.post(REGISTER_URL, userObject);
+        console.log('registerUser res', response);
         dispatch(userSavedSuccess(response.data));
         return Promise.resolve(response.data);
     } catch (error) {

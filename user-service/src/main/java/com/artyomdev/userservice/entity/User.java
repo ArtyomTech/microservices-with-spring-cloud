@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "department_user")
 @Getter
@@ -22,8 +24,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "department_user_id")
-    private long userId;
+    @Column(name = "user_id")
+    private long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -34,6 +36,14 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private boolean enabled;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "department_id")
     private long departmentId;

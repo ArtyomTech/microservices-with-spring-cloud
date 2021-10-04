@@ -23,7 +23,7 @@ public class UserService {
         ResponseUserDto responseUserDto = new ResponseUserDto();
         User user = userRepository.findById(userId).orElse(null);
         if (Objects.nonNull(user)) {
-            DepartmentDto departmentDto = restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" +
+            DepartmentDto departmentDto = restTemplate.getForObject("http://DEPARTMENT-SERVICE/api/departments/" +
                             user.getDepartmentId(), DepartmentDto.class);
             responseUserDto.setUser(user);
             responseUserDto.setDepartment(departmentDto);
@@ -42,7 +42,7 @@ public class UserService {
     public List<ResponseUserDto> getUsersWithDepartment() {
         List<User> users = userRepository.findAll();
 
-        return users.stream().map(user -> getUserWithDepartment(user.getUserId())).collect(Collectors.toList());
+        return users.stream().map(user -> getUserWithDepartment(user.getId())).collect(Collectors.toList());
     }
 
 }

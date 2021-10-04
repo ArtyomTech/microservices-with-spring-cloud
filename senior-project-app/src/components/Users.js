@@ -8,12 +8,12 @@ const Users = () => {
     const users = useSelector((state) => state.users.users);
     const usersList = users.map((departmentUser) => {
         const { user } = departmentUser;
-        const { userId } = user;
+        const { id } = user;
 
         return (
-            <tr key={userId}>
+            <tr key={id}>
                 <td>
-                    <Link to={`/users/${userId}`}>{user.firstName + ' ' + user.lastName}</Link>
+                    <Link to={`/users/${id}`}>{user.firstName + ' ' + user.lastName}</Link>
                 </td>
             </tr>
         );

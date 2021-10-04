@@ -37,11 +37,12 @@ const Login = (props) => {
 
     const dispatch = useDispatch();
 
-    const validateUser = () => {
+    function validateUser() {
+        console.log('user', user);
         dispatch(authenticateUser(user.email, user.password))
             .then((response) => {
                 console.log(response.data);
-                return props.history.push("/");
+                return props.history.push("/users");
             })
             .catch((error) => {
                 console.log(error.message);

@@ -1,0 +1,5 @@
+CREATE TABLE user_role (
+	id BIGSERIAL NOT NULL,
+	user_id BIGSERIAL NOT NULL,
+	role_id BIGSERIAL NOT NULL
+);
