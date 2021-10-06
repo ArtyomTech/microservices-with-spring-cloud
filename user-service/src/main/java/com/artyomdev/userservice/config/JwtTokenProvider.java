@@ -37,7 +37,6 @@ public class JwtTokenProvider implements Serializable {
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
-        System.out.println("secretKey: " + secretKey);
     }
 
     private long validityInMilliseconds = 50 * 60 * 60; // 2 minute
@@ -62,7 +61,6 @@ public class JwtTokenProvider implements Serializable {
     }
 
     public Claims getClaimsFromToken(String token) {
-        System.out.println("token, secretKey: " + token + ", " + secretKey);
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 

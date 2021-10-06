@@ -13,7 +13,7 @@ export const authenticateUser = (email, password) => async (dispatch) => {
             email: email,
             password: password,
         });
-        console.log('res token', response);
+
         localStorage.setItem("jwtToken", response.data.token);
         dispatch(success({ username: response.data.username, isLoggedIn: true }));
         return Promise.resolve(response.data);
@@ -61,7 +61,6 @@ export const registerUser = (userObject) => async (dispatch) => {
     dispatch(userRequest());
     try {
         const response = await axios.post(REGISTER_URL, userObject);
-        console.log('registerUser res', response);
         dispatch(userSavedSuccess(response.data));
         return Promise.resolve(response.data);
     } catch (error) {

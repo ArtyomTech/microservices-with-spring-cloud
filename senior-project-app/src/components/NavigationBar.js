@@ -1,42 +1,65 @@
-// React
-import { Link } from 'react-router-dom';
-
-// Bootstrap
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Navbar, Nav } from "react-bootstrap";
-
-// Font Awesome
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faUserPlus, faSignInAlt,
+    faUserPlus,
+    faSignInAlt,
+    faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { logoutUser } from "../redux/auth/authActions";
 
-function NavigationBar() {
+const NavigationBar = () => {
+    const auth = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
+    const logout = () => {
+        dispatch(logoutUser());
+    };
+
     const guestLinks = (
         <>
-            {/* TODO HERE, REMAKE LATER */}
-            <Nav className="mr-auto">
-                <Link to={"/users"} className="nav-link">
-                    Users List
-                </Link>
-            </Nav>
-
+            <div className="mr-auto"></div>
             <Nav className="navbar-right">
-                <Link to={"/register"} className="nav-link">
+                <Link to={"register"} className="nav-link">
                     <FontAwesomeIcon icon={faUserPlus} /> Register
                 </Link>
-                <Link to={"/login"} className="nav-link">
+                <Link to={"login"} className="nav-link">
                     <FontAwesomeIcon icon={faSignInAlt} /> Login
+                </Link>
+            </Nav>
+        </>
+    );
+    const userLinks = (
+        <>
+            <Nav className="mr-auto">
+                <Link to={"/users"} className="nav-link">
+                    Users
+                </Link>
+            </Nav>
+            <Nav className="navbar-right">
+                <Link to={"/logout"} className="nav-link" onClick={logout}>
+                    <FontAwesomeIcon icon={faSignOutAlt} /> Logout
                 </Link>
             </Nav>
         </>
     );
 
     return (
-        <Navbar bg="light">
-            <Navbar.Brand href="/">Department Store</Navbar.Brand>
-            {guestLinks}
+        <Navbar bg="light" expand="lg">
+            <Link to={auth.isLoggedIn ? "home" : ""} className="navbar-brand">
+                <img
+                    src={"/images/icons/department-icon.png"}
+                    width="25"
+                    height="25"
+                    alt="brand"
+                />{" "}
+                iDepartment
+            </Link>
+            {auth.isLoggedIn ? userLinks : guestLinks}
         </Navbar>
-    )
-}
+    );
+};
 
 export default NavigationBar;

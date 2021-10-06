@@ -8,9 +8,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavigationBar from './components/NavigationBar';
 import UsersList from './components/UsersList';
 import User from './components/User';
-import Login from "./components/Login";
-import Register from "./components/Register";
-import Home from "./components/Home";
+import Login from './components/Login';
+import Register from './components/Register';
+import Home from './components/Home';
+import Welcome from './components/Welcome';
 
 function App() {
   return (
@@ -22,11 +23,19 @@ function App() {
           <Row>
             <Col lg={12} className="mt-lg-5">
               <Switch>
+                <Route path="/" exact component={Welcome} />
                 <Route path="/home" exact component={Home} />
                 <Route path="/users" exact component={UsersList} />
                 <Route path="/register" exact component={Register} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/users/:userId" exact component={User} />
+                <Route
+                  path="/logout"
+                  exact
+                  component={() => (
+                    <Login message="User Logged Out Successfully." />
+                  )}
+                />
                 <Route>404 Not Found!</Route>
               </Switch>
             </Col>

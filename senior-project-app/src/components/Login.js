@@ -38,14 +38,12 @@ const Login = (props) => {
     const dispatch = useDispatch();
 
     function validateUser() {
-        console.log('user', user);
         dispatch(authenticateUser(user.email, user.password))
             .then((response) => {
-                console.log('res', response);
                 return props.history.push("/home");
             })
             .catch((error) => {
-                console.log(error.message);
+                console.log('Err', error.message);
                 setShow(true);
                 resetLoginForm();
                 setError("Invalid email and password");

@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-    Row,
-    Col,
-    Card,
-    Form,
-    InputGroup,
-    FormControl,
-    Button,
+    Row, Col, Card, Form, InputGroup, FormControl, Button
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,7 +13,7 @@ import {
     faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { registerUser } from "../redux/auth/authActions";
-import MyToast from "../widgets/MyToast";
+import RegisterToast from "../widgets/RegisterToast";
 
 const Register = (props) => {
     const [show, setShow] = useState(false);
@@ -53,7 +47,7 @@ const Register = (props) => {
                 }, 2000);
             })
             .catch((error) => {
-                console.log(error);
+                console.log('Err', error);
             });
     };
 
@@ -64,7 +58,7 @@ const Register = (props) => {
     return (
         <div>
             <div style={{ display: show ? "block" : "none" }}>
-                <MyToast show={show} message={message} type={"success"} />
+                <RegisterToast show={show} message={message} type={"success"} />
             </div>
             <Row className="justify-content-md-center">
                 <Col xs={5}>

@@ -43,11 +43,8 @@ public class UserController {
             String username = data.getEmail();
             Set<Role> roles = userRepository.findByEmail(username).getRoles();
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
-            System.out.println("AUTH LALALALL: " + auth.isAuthenticated());
             if (auth.isAuthenticated()) {
-                System.out.println("here");
                 String token = jwtTokenProvider.createToken(username, roles);
-                System.out.println("token: " + token);
                 Map<Object, Object> model = new HashMap<>();
                 model.put("username", username);
                 model.put("authorities", auth.getAuthorities());
@@ -83,7 +80,6 @@ public class UserController {
 
     @GetMapping
     public List<ResponseUserDto> getUsers() {
-        System.out.println("HERE I AM");
         return userService.getUsersWithDepartment();
     }
 

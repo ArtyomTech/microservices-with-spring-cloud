@@ -32,11 +32,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		log.info("JwtTokenFilter : doFilterInternal");
 		String token = request.getHeader("Authorization");
-		System.out.println("token1: " + token);
 		if (token != null) {
 			try {
 				Claims claims = tokenProvider.getClaimsFromToken(token);
-				System.out.println("claims: " + claims);
 				if (!claims.getExpiration().before(new Date())) {
 					Authentication authentication = tokenProvider.getAuthentication(claims.getSubject());
 					if (authentication.isAuthenticated()) {
@@ -58,6 +56,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 		} else {
 			log.info("first time so creating token using UserResourceImpl - authenticate method");
 		}
+
 		filterChain.doFilter(request, response);
 	}
 
