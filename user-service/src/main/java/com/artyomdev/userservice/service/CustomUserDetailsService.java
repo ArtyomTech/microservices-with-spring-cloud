@@ -2,6 +2,7 @@ package com.artyomdev.userservice.service;
 
 import com.artyomdev.userservice.entity.Role;
 import com.artyomdev.userservice.entity.User;
+import com.artyomdev.userservice.repository.RoleRepository;
 import com.artyomdev.userservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -19,6 +20,8 @@ import java.util.*;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	private UserRepository userRepository;
+	private RoleRepository roleRepository;
+
 	private PasswordEncoder bCryptPasswordEncoder;
 
 	public User findUserByEmail(String email) {
@@ -30,7 +33,19 @@ public class CustomUserDetailsService implements UserDetailsService {
 	    user.setEnabled(true);
 	    user.setEmail(user.getEmail());
 	    user.setName(user.getName());
-	    userRepository.save(user);
+		userRepository.save(user);
+
+		Role role = roleRepository.findById(1L).orElse(null);
+		if (Objects.nonNull(role)) {
+			Set<User> users = role.getUsers();
+			users.add(user);
+			role.setUsers(users);
+			roleRepository.save(role);
+
+		/*User userByEmail = userRepository.findByEmail(user.getEmail());
+		userByEmail.setRoles(Collections.singleton(role));
+	    userRepository.save(user);*/
+		}
 	}
 	
 	@Override

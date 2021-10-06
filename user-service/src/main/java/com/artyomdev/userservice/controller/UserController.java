@@ -1,6 +1,7 @@
 package com.artyomdev.userservice.controller;
 
 import com.artyomdev.userservice.config.JwtTokenProvider;
+import com.artyomdev.userservice.entity.Role;
 import com.artyomdev.userservice.entity.User;
 import com.artyomdev.userservice.entity.dto.ResponseUserDto;
 import com.artyomdev.userservice.entity.dto.UserDto;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -39,12 +41,16 @@ public class UserController {
     public ResponseEntity<Map<Object, Object>> login(@RequestBody UserDto data) {
         try {
             String username = data.getEmail();
+            Set<Role> roles = userRepository.findByEmail(username).getRoles();
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
             System.out.println("AUTH LALALALL: " + auth.isAuthenticated());
             if (auth.isAuthenticated()) {
-                String token = jwtTokenProvider.createToken(username, userRepository.findByEmail(username).getRoles());
+                System.out.println("here");
+                String token = jwtTokenProvider.createToken(username, roles);
+                System.out.println("token: " + token);
                 Map<Object, Object> model = new HashMap<>();
                 model.put("username", username);
+                model.put("authorities", auth.getAuthorities());
                 model.put("token", token);
 
                 return new ResponseEntity<>(model, HttpStatus.OK);
@@ -75,7 +81,7 @@ public class UserController {
         return userService.getUserWithDepartment(userId);
     }
 
-    @GetMapping("/lala")
+    @GetMapping
     public List<ResponseUserDto> getUsers() {
         System.out.println("HERE I AM");
         return userService.getUsersWithDepartment();

@@ -17,20 +17,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@AllArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-	private static final Logger log = LoggerFactory.getLogger(JwtTokenFilter.class);
-	private final JwtTokenProvider tokenProvider;
+	private static Logger log = LoggerFactory.getLogger(JwtTokenFilter.class);
+
+	private JwtTokenProvider tokenProvider;
+
+	public JwtTokenFilter(JwtTokenProvider tokenProvider) {
+		this.tokenProvider = tokenProvider;
+	}
 
 	@Override
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		log.info("JwtTokenFilter : doFilterInternal");
 		String token = request.getHeader("Authorization");
-		if (!token.isEmpty()) {
+		System.out.println("token1: " + token);
+		if (token != null) {
 			try {
 				Claims claims = tokenProvider.getClaimsFromToken(token);
+				System.out.println("claims: " + claims);
 				if (!claims.getExpiration().before(new Date())) {
 					Authentication authentication = tokenProvider.getAuthentication(claims.getSubject());
 					if (authentication.isAuthenticated()) {
@@ -47,13 +53,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 				} catch (IOException | JSONException e1) {
 					e1.printStackTrace();
 				}
-
 				return;
 			}
 		} else {
 			log.info("first time so creating token using UserResourceImpl - authenticate method");
 		}
-
 		filterChain.doFilter(request, response);
 	}
 

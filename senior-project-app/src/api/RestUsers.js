@@ -6,7 +6,11 @@ import api from './RestUtils';
 
 export async function fetchUsers(dispatch) {
     const response = await api
-        .get(`api/users/lala`)
+        .get(`api/users`, {
+            headers: {
+                'Authorization': localStorage.getItem('jwtToken')
+            }
+        })
         .catch(err => {
             console.log('Err ', err);
         });
@@ -16,7 +20,11 @@ export async function fetchUsers(dispatch) {
 
 export async function fetchUser(dispatch, userId) {
     const response = await api
-        .get(`api/users/${userId}`)
+        .get(`api/users/${userId}`, {
+            headers: {
+                'Authorization': localStorage.getItem('jwtToken')
+            }
+        })
         .catch(err => {
             console.log('Err ', err);
         });
