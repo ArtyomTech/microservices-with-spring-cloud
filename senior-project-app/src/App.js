@@ -1,5 +1,6 @@
 // React
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 // Bootstrap
 import { Container, Row, Col } from "react-bootstrap";
@@ -13,14 +14,22 @@ import Register from './components/Register';
 import Home from './components/Home';
 import Welcome from './components/Welcome';
 
-function App() {
-  const authToken = localStorage.getItem("jwtToken");
-  const authPaths = (
-    <>
-      <Route path="/users" exact component={UsersList} />
-      <Route path="/users/:userId" exact component={User} />
-    </>
+function PrivateRoute({ component: Component, authed, ...rest }) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => authed === true
+        ? <Component {...props} />
+        : <Redirect to={{ pathname: '/login' }} />}
+    />
   )
+}
+
+function App() {
+  const auth = useSelector((state) => state.auth);
+  console.log('app-auth', auth);
+
+  const authToken = localStorage.getItem("jwtToken");
   console.log('authToken', authToken);
 
   return (
@@ -43,11 +52,8 @@ function App() {
                 />
 
                 {/* Authenticated paths */}
-                {authToken ?
-                  authPaths
-                  :
-                  <Route>No access!</Route>
-                }
+                <PrivateRoute authed={auth.isLoggedIn} path="/users" exact component={UsersList} />
+                <PrivateRoute authed={auth.isLoggedIn} path="/users/:userId" exact component={User} />
 
                 <Route>404 Not Found!</Route>
               </Switch>

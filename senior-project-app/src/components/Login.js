@@ -51,7 +51,7 @@ const Login = (props) => {
     };
 
     const resetLoginForm = () => {
-        setUser(initialState);
+        setUser({});
     };
 
     return (
