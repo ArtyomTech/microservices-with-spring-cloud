@@ -42,7 +42,8 @@ public class UserController {
         try {
             String username = data.getEmail();
             Set<Role> roles = userRepository.findByEmail(username).getRoles();
-            Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, data.getPassword()));
             if (auth.isAuthenticated()) {
                 String token = jwtTokenProvider.createToken(username, roles);
                 Map<Object, Object> model = new HashMap<>();

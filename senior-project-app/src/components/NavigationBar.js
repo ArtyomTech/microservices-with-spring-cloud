@@ -48,7 +48,7 @@ const NavigationBar = () => {
 
     return (
         <Navbar bg="light" expand="lg">
-            <Link to={auth.isLoggedIn ? "home" : ""} className="navbar-brand">
+            <Link to={auth.isLoggedIn ? "/home" : ""} className="navbar-brand">
                 <img
                     src={"/images/icons/department-icon.png"}
                     width="25"
