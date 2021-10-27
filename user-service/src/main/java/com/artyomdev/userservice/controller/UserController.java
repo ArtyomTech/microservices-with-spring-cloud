@@ -86,7 +86,7 @@ public class UserController {
 
     @PostMapping("/example")
     public User saveDepartmentUserExample() {
-        return  userService.saveDepartmentUserExample();
+        return userService.saveDepartmentUserExample();
     }
 
 }

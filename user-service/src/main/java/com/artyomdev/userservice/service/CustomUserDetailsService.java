@@ -19,57 +19,57 @@ import java.util.*;
 @AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private UserRepository userRepository;
-	private RoleRepository roleRepository;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
 
-	private PasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
-	public User findUserByEmail(String email) {
-	    return userRepository.findByEmail(email);
-	}
-	
-	public void saveUser(User user) {
-	    user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-	    user.setEnabled(true);
-	    user.setEmail(user.getEmail());
-	    user.setName(user.getName());
-		userRepository.save(user);
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
-		Role role = roleRepository.findById(1L).orElse(null);
-		if (Objects.nonNull(role)) {
-			Set<User> users = role.getUsers();
-			users.add(user);
-			role.setUsers(users);
-			roleRepository.save(role);
+    public void saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setEnabled(true);
+        user.setEmail(user.getEmail());
+        user.setName(user.getName());
+        userRepository.save(user);
+
+        Role role = roleRepository.findById(1L).orElse(null);
+        if (Objects.nonNull(role)) {
+            Set<User> users = role.getUsers();
+            users.add(user);
+            role.setUsers(users);
+            roleRepository.save(role);
 
 		/*User userByEmail = userRepository.findByEmail(user.getEmail());
 		userByEmail.setRoles(Collections.singleton(role));
 	    userRepository.save(user);*/
-		}
-	}
-	
-	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-	    User user = userRepository.findByEmail(email);
-	    if(Objects.nonNull(user)) {
-	        List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
-	        return buildUserForAuthentication(user, authorities);
-	    } else {
-	        throw new UsernameNotFoundException("username not found");
-	    }
-	}
-	
-	private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
-	    Set<GrantedAuthority> roles = new HashSet<>();
-	    userRoles.forEach((role) -> {
-	        roles.add(new SimpleGrantedAuthority(role.getRole()));
-	    });
+        }
+    }
 
-		return new ArrayList<>(roles);
-	}
-	
-	private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
-	    return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
-	}
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (Objects.nonNull(user)) {
+            List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
+            return buildUserForAuthentication(user, authorities);
+        } else {
+            throw new UsernameNotFoundException("username not found");
+        }
+    }
+
+    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
+        Set<GrantedAuthority> roles = new HashSet<>();
+        userRoles.forEach((role) -> {
+            roles.add(new SimpleGrantedAuthority(role.getRole()));
+        });
+
+        return new ArrayList<>(roles);
+    }
+
+    private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
+    }
 
 }

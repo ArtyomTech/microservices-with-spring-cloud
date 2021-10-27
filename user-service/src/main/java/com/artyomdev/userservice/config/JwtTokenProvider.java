@@ -22,16 +22,16 @@ import java.util.Set;
 public class JwtTokenProvider implements Serializable {
 
     private static final long serialVersionUID = 2569800841756370596L;
-
+    private final long validityInMilliseconds = 50 * 60 * 60; // 2 minute
     @Value("${security.jwt.token.secret-key}")
     private String secretKey;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
-
-    private final long validityInMilliseconds = 50 * 60 * 60; // 2 minute
 
     public String createToken(String username, Set<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
@@ -42,9 +42,6 @@ public class JwtTokenProvider implements Serializable {
                 .setExpiration(new Date(now.getTime() + validityInMilliseconds))
                 .signWith(SignatureAlgorithm.HS256, secretKey).compact();
     }
-
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     public Authentication getAuthentication(String username) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
