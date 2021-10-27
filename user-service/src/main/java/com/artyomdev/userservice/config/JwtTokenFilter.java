@@ -17,15 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
+@AllArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
 	private static Logger log = LoggerFactory.getLogger(JwtTokenFilter.class);
-
 	private JwtTokenProvider tokenProvider;
-
-	public JwtTokenFilter(JwtTokenProvider tokenProvider) {
-		this.tokenProvider = tokenProvider;
-	}
 
 	@Override
 	public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
