@@ -29,6 +29,7 @@ const Login = (props) => {
     };
 
     const [user, setUser] = useState(initialState);
+    console.log('user', user)
 
     const credentialChange = (event) => {
         const { name, value } = event.target;
@@ -51,7 +52,7 @@ const Login = (props) => {
     };
 
     const resetLoginForm = () => {
-        setUser({});
+        setUser(initialState);
     };
 
     return (
