@@ -14,20 +14,18 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class Department {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "department_id", unique = true, nullable = false)
+    private long departmentId;
+    @Column(name = "department_name")
+    private String departmentName;
+    @Column(name = "department_address")
+    private String departmentAddress;
+
     public Department(String departmentName, String departmentAddress) {
         this.departmentName = departmentName;
         this.departmentAddress = departmentAddress;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="department_id", unique=true, nullable=false)
-    private long departmentId;
-
-    @Column(name="department_name")
-    private String departmentName;
-
-    @Column(name="department_address")
-    private String departmentAddress;
 
 }

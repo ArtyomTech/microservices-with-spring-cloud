@@ -19,7 +19,7 @@ public class DepartmentController {
 
     @PostMapping("/example")
     public Department saveDepartmentExample() {
-        return  departmentService.saveDepartmentExample();
+        return departmentService.saveDepartmentExample();
     }
 
 }
