@@ -24,7 +24,7 @@ public class UserService {
         User user = userRepository.findById(userId).orElse(null);
         if (Objects.nonNull(user)) {
             DepartmentDto departmentDto = restTemplate.getForObject("http://DEPARTMENT-SERVICE/api/departments/" +
-                            user.getDepartmentId(), DepartmentDto.class);
+                    user.getDepartmentId(), DepartmentDto.class);
             responseUserDto.setUser(user);
             responseUserDto.setDepartment(departmentDto);
 
