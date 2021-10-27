@@ -52,8 +52,8 @@ function App() {
                 />
 
                 {/* Authenticated paths */}
-                <PrivateRoute authed={auth.isLoggedIn} path="/users" exact component={UsersList} />
-                <PrivateRoute authed={auth.isLoggedIn} path="/users/:userId" exact component={User} />
+                <PrivateRoute authed={authToken !== null} path="/users" exact component={UsersList} />
+                <PrivateRoute authed={authToken !== null} path="/users/:userId" exact component={User} />
 
                 <Route>404 Not Found!</Route>
               </Switch>

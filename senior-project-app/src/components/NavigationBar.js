@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +11,7 @@ import {
 import { logoutUser } from "../redux/auth/authActions";
 
 const NavigationBar = () => {
-    const auth = useSelector((state) => state.auth);
+    const authToken = localStorage.getItem("jwtToken");
     const dispatch = useDispatch();
 
     const logout = () => {
@@ -48,7 +48,7 @@ const NavigationBar = () => {
 
     return (
         <Navbar bg="light" expand="lg">
-            <Link to={auth.isLoggedIn ? "/home" : ""} className="navbar-brand">
+            <Link to={authToken ? "/home" : ""} className="navbar-brand">
                 <img
                     src={"/images/icons/department-icon.png"}
                     width="25"
@@ -57,7 +57,7 @@ const NavigationBar = () => {
                 />{" "}
                 iDepartment
             </Link>
-            {auth.isLoggedIn ? userLinks : guestLinks}
+            {authToken ? userLinks : guestLinks}
         </Navbar>
     );
 };

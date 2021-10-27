@@ -1,7 +1,5 @@
 CREATE TABLE department_user (
 	user_id BIGSERIAL PRIMARY KEY NOT NULL,
-    first_name varchar(255),
-    last_name varchar(255),
     name varchar(255),
     email varchar(255),
     password varchar(255),

@@ -15,9 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class User {
 
-    public User(String firstName, String lastName, long departmentId) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User(long departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -25,12 +23,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private long id;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
 
     private String name;
     private String email;

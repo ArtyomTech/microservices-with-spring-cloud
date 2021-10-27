@@ -32,11 +32,13 @@ function User() {
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
+                            <th scope="col">Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr key={userId}>
-                            <td>{user.firstName + ' ' + user.lastName}</td>
+                            <td>{user.name}</td>
+                            <td>{user.email}</td>
                         </tr>
                     </tbody>
                 </Table>

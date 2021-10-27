@@ -25,6 +25,7 @@ function UsersList() {
             <thead>
                 <tr>
                     <th scope="col">Name</th>
+                    <th scope="col">Email</th>
                 </tr>
             </thead>
             <tbody>

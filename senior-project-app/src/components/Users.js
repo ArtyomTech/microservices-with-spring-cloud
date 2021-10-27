@@ -13,7 +13,10 @@ const Users = () => {
         return (
             <tr key={id}>
                 <td>
-                    <Link to={`/users/${id}`}>{user.firstName + ' ' + user.lastName}</Link>
+                    <Link to={`/users/${id}`}>{user.name}</Link>
+                </td>
+                <td>
+                    {user.email}
                 </td>
             </tr>
         );

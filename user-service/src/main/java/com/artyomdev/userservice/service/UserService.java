@@ -35,7 +35,7 @@ public class UserService {
     }
 
     public User saveDepartmentUserExample() {
-        User user = new User("Artyom", "Aralov", 1);
+        User user = new User(1);
         return userRepository.save(user);
     }
 
