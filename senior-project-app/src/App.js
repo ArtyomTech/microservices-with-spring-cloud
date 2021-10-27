@@ -48,7 +48,7 @@ function App() {
                 <Route
                   path="/logout"
                   exact
-                  component={() => (<Login message="User Logged Out Successfully." />)}
+                  component={(props) => (<Login message="User Logged Out Successfully." {...props} />)}
                 />
 
                 {/* Authenticated paths */}
