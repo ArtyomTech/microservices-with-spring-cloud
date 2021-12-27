@@ -1,22 +1,22 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react"
+import { useDispatch } from "react-redux"
+import { Navbar, Nav } from "react-bootstrap"
+import { Link } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
     faUserPlus,
     faSignInAlt,
     faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { logoutUser } from "../redux/auth/authActions";
+} from "@fortawesome/free-solid-svg-icons"
+import { logoutUser } from "../redux/auth/authActions"
 
 const NavigationBar = () => {
-    const authToken = localStorage.getItem("jwtToken");
-    const dispatch = useDispatch();
+    const authToken = localStorage.getItem("jwtToken")
+    const dispatch = useDispatch()
 
     const logout = () => {
-        dispatch(logoutUser());
-    };
+        dispatch(logoutUser())
+    }
 
     const guestLinks = (
         <>
@@ -30,7 +30,7 @@ const NavigationBar = () => {
                 </Link>
             </Nav>
         </>
-    );
+    )
     const userLinks = (
         <>
             <Nav className="mr-auto">
@@ -44,7 +44,7 @@ const NavigationBar = () => {
                 </Link>
             </Nav>
         </>
-    );
+    )
 
     return (
         <Navbar bg="light" expand="lg">
@@ -59,7 +59,7 @@ const NavigationBar = () => {
             </Link>
             {authToken ? userLinks : guestLinks}
         </Navbar>
-    );
-};
+    )
+}
 
-export default NavigationBar;
+export default NavigationBar

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import {
     Row,
     Col,
@@ -9,51 +9,51 @@ import {
     FormControl,
     Button,
     Alert,
-} from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from "react-bootstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
     faSignInAlt,
     faEnvelope,
     faLock,
     faUndo,
-} from "@fortawesome/free-solid-svg-icons";
-import { authenticateUser } from "../redux/auth/authActions";
+} from "@fortawesome/free-solid-svg-icons"
+import { authenticateUser } from "../redux/auth/authActions"
 
 const Login = (props) => {
-    const [error, setError] = useState();
-    const [show, setShow] = useState(true);
+    const [error, setError] = useState()
+    const [show, setShow] = useState(true)
 
     const initialState = {
         email: "",
         password: "",
-    };
+    }
 
-    const [user, setUser] = useState(initialState);
+    const [user, setUser] = useState(initialState)
     console.log('user', user)
 
     const credentialChange = (event) => {
-        const { name, value } = event.target;
-        setUser({ ...user, [name]: value });
-    };
+        const { name, value } = event.target
+        setUser({ ...user, [name]: value })
+    }
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     function validateUser() {
         dispatch(authenticateUser(user.email, user.password))
             .then((response) => {
-                return props.history.push("/home");
+                return props.history.push("/home")
             })
             .catch((error) => {
-                console.log('Err', error.message);
-                setShow(true);
-                resetLoginForm();
-                setError("Invalid email and password");
-            });
-    };
+                console.log('Err', error.message)
+                setShow(true)
+                resetLoginForm()
+                setError("Invalid email and password")
+            })
+    }
 
     const resetLoginForm = () => {
-        setUser(initialState);
-    };
+        setUser(initialState)
+    }
 
     return (
         <Row className="justify-content-md-center">
@@ -137,7 +137,7 @@ const Login = (props) => {
                 </Card>
             </Col>
         </Row>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login

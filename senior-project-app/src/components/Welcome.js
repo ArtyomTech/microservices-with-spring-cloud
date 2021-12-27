@@ -1,5 +1,5 @@
-import React from "react";
-import { Alert } from "react-bootstrap";
+import React from "react"
+import { Alert } from "react-bootstrap"
 
 const Welcome = () => {
 
@@ -7,7 +7,7 @@ const Welcome = () => {
         <Alert variant="info">
             Welcome to iDepartment
         </Alert>
-    );
-};
+    )
+}
 
-export default Welcome;
+export default Welcome

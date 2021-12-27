@@ -1,5 +1,5 @@
-import React from "react";
-import { Toast } from "react-bootstrap";
+import React from "react"
+import { Toast } from "react-bootstrap"
 
 const MyToast = (props) => {
     const toastCss = {
@@ -9,7 +9,7 @@ const MyToast = (props) => {
         zIndex: "1",
         boxShadow:
             "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-    };
+    }
 
     return (
         <div style={props.show ? toastCss : null}>
@@ -30,7 +30,7 @@ const MyToast = (props) => {
                 <Toast.Body>{props.message}</Toast.Body>
             </Toast>
         </div>
-    );
-};
+    )
+}
 
-export default MyToast;
+export default MyToast

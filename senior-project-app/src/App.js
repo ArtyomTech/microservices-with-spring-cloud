@@ -1,18 +1,18 @@
 // React
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { useSelector } from "react-redux"
 
 // Bootstrap
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap"
 
 // Components
-import NavigationBar from './components/NavigationBar';
-import UsersList from './components/UsersList';
-import User from './components/User';
-import Login from './components/Login';
-import Register from './components/Register';
-import Home from './components/Home';
-import Welcome from './components/Welcome';
+import NavigationBar from './components/NavigationBar'
+import UsersList from './components/UsersList'
+import User from './components/User'
+import Login from './components/Login'
+import Register from './components/Register'
+import Home from './components/Home'
+import Welcome from './components/Welcome'
 
 function PrivateRoute({ component: Component, authed, ...rest }) {
   return (
@@ -26,11 +26,11 @@ function PrivateRoute({ component: Component, authed, ...rest }) {
 }
 
 function App() {
-  const auth = useSelector((state) => state.auth);
-  console.log('app-auth', auth);
+  const auth = useSelector((state) => state.auth)
+  console.log('app-auth', auth)
 
-  const authToken = localStorage.getItem("jwtToken");
-  console.log('authToken', authToken);
+  const authToken = localStorage.getItem("jwtToken")
+  console.log('authToken', authToken)
 
   return (
     <div className="App">
@@ -62,7 +62,7 @@ function App() {
         </Container>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

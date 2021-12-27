@@ -1,28 +1,28 @@
 // React
-import { useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useEffect } from 'react'
+import { useParams } from 'react-router'
 
 // Redux
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 
 // Bootstrap
-import { Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap'
 
 // API
-import { fetchUser } from '../api/RestUsers';
+import { fetchUser } from '../api/RestUsers'
 
 function User() {
-    const departmentUser = useSelector((state) => state.user);
-    const { userId } = useParams();
-    const dispatch = useDispatch();
+    const departmentUser = useSelector((state) => state.user)
+    const { userId } = useParams()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (userId) {
-            fetchUser(dispatch, userId);
+            fetchUser(dispatch, userId)
         }
-    }, [userId, dispatch]);
+    }, [userId, dispatch])
 
-    const { user } = departmentUser;
+    const { user } = departmentUser
     return (
         <>
             {!user ? (
@@ -47,4 +47,4 @@ function User() {
     )
 }
 
-export default User;
+export default User

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import {
     Row, Col, Card, Form, InputGroup, FormControl, Button
-} from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from "react-bootstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
     faPhone,
     faEnvelope,
@@ -11,49 +11,49 @@ import {
     faUndo,
     faUserPlus,
     faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { registerUser } from "../redux/auth/authActions";
-import RegisterToast from "../widgets/RegisterToast";
+} from "@fortawesome/free-solid-svg-icons"
+import { registerUser } from "../redux/auth/authActions"
+import RegisterToast from "../widgets/RegisterToast"
 
 const Register = (props) => {
-    const [show, setShow] = useState(false);
-    const [message, setMessage] = useState("");
+    const [show, setShow] = useState(false)
+    const [message, setMessage] = useState("")
 
     const initialState = {
         name: "",
         email: "",
         password: "",
         mobile: "",
-    };
+    }
 
-    const [user, setUser] = useState(initialState);
+    const [user, setUser] = useState(initialState)
 
     const userChange = (event) => {
-        const { name, value } = event.target;
-        setUser({ ...user, [name]: value });
-    };
+        const { name, value } = event.target
+        setUser({ ...user, [name]: value })
+    }
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const saveUser = () => {
         dispatch(registerUser(user))
             .then((response) => {
-                setShow(true);
-                setMessage(response.message);
-                resetRegisterForm();
+                setShow(true)
+                setMessage(response.message)
+                resetRegisterForm()
                 setTimeout(() => {
-                    setShow(false);
-                    props.history.push("/login");
-                }, 2000);
+                    setShow(false)
+                    props.history.push("/login")
+                }, 2000)
             })
             .catch((error) => {
-                console.log('Err', error);
-            });
-    };
+                console.log('Err', error)
+            })
+    }
 
     const resetRegisterForm = () => {
-        setUser(initialState);
-    };
+        setUser(initialState)
+    }
 
     return (
         <div>
@@ -169,7 +169,7 @@ const Register = (props) => {
                 </Col>
             </Row>
         </div>
-    );
-};
+    )
+}
 
-export default Register;
+export default Register

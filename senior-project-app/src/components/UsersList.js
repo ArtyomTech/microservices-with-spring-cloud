@@ -1,24 +1,24 @@
 // React
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
 // Redux
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 
 // Bootstrap
-import { Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap'
 
 // Components
-import Users from './Users';
+import Users from './Users'
 
 // API
-import { fetchUsers } from '../api/RestUsers';
+import { fetchUsers } from '../api/RestUsers'
 
 function UsersList() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        fetchUsers(dispatch);
-    });
+        fetchUsers(dispatch)
+    })
 
     return (
         <Table bordered hover>
@@ -35,4 +35,4 @@ function UsersList() {
     )
 }
 
-export default UsersList;
+export default UsersList

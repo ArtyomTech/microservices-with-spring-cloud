@@ -1,9 +1,9 @@
-import { LOGIN_REQUEST, LOGOUT_REQUEST, SUCCESS, FAILURE } from "./authTypes";
+import { LOGIN_REQUEST, LOGOUT_REQUEST, SUCCESS, FAILURE } from "./authTypes"
 
 const initialState = {
     username: "",
     isLoggedIn: false,
-};
+}
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -11,16 +11,16 @@ const authReducer = (state = initialState, action) => {
         case LOGOUT_REQUEST:
             return {
                 ...state,
-            };
+            }
         case SUCCESS:
         case FAILURE:
             return {
                 username: action.payload.username,
                 isLoggedIn: action.payload.isLoggedIn,
-            };
+            }
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default authReducer;
+export default authReducer

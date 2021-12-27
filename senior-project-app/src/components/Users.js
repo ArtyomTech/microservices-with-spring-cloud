@@ -1,14 +1,14 @@
 // React
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 // Redux
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 const Users = () => {
-    const users = useSelector((state) => state.users.users);
+    const users = useSelector((state) => state.users.users)
     const usersList = users.map((departmentUser) => {
-        const { user } = departmentUser;
-        const { id } = user;
+        const { user } = departmentUser
+        const { id } = user
 
         return (
             <tr key={id}>
@@ -19,10 +19,10 @@ const Users = () => {
                     {user.email}
                 </td>
             </tr>
-        );
-    });
+        )
+    })
 
-    return usersList;
-};
+    return usersList
+}
 
-export default Users;
+export default Users
