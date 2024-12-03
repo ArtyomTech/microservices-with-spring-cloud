@@ -1,2 +1,1 @@
-# Senior-Project
-Senior project with microservices
+# Microservices with Spring Cloud
