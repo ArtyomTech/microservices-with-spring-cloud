@@ -1,5 +1,0 @@
-1.1) Docker and Kubernetes
-1.2) React Functional FE, AntD + Bootstrap
-2) Actuator
-3) RabbitMQ
-4) Redis
